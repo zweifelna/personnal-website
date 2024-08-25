@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Welcome to Astro.">
+	<div class="container">
+        <header class="header">
+            <div class="header-left">
+				Test
+            </div>
+            <div class="header-right">
+                <!-- Contenu de la section longue (droite) -->
+                <h1>Nathan Zweifel</h1>
+            </div>
+        </header>
+        <div class="content">
+            <div class="section resume">
+                <h2>Resume</h2>
+                <p>Nathan Zweifel is a Swiss interaction designer with a background in media engineering who is fascinated by tangible interfaces, game design, and the innovative use of AI for storytelling, focusing on playful experiences.</p>
+				<p>Among his projects, Nathan developed a small robot designed to help children create collaborative stories, fostering both creativity and teamwork. He is currently working on a video game that offers critical reflections on technology and its repairability.</p>
+            </div>
+            <div class="section projects">
+                <h2>Projects</h2>
+                <ul>
+                    <li><a href="#">Trust the repair (2024)</a></li>
+                    <li><a href="#">Jardin des Aiguilles (2024)</a></li>
+                    <li><a href="#">Psychopomp (2023)</a></li>
+                    <!-- Ajoute les autres projets ici -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+
+	h1,h2 {
+		font-family: 'NyghtSerif', sans-serif;
+		font-size: 2.5em; /* Optionnel : ajuster la taille de la police */
+    	color: #0D1F9B; /* Optionnel : ajuster la couleur du texte */
+	}
+
+	h2 {
+		font-size: 2em;
+	}
+
+	p, a {
+		font-family: 'GeistMono', sans-serif;
+		font-size: 1em; /* Optionnel : ajuster la taille de la police */
+    	color: #0D1F9B; /* Optionnel : ajuster la couleur du texte */
+	}
+
+	body {
+		background-color: #f8f3ec; /* Fond crème */
+		margin: 0;
+		padding: 0;
+		color: #0D1F9B;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 2px solid #002d72; /* Bordure bleue */
+		position: relative; /* Pour permettre le centrage absolu */
+		height: 150px; /* Ajuste la hauteur du header selon tes besoins */
+	}
+
+	.header-left {
+		flex-basis: 15%; /* Ajuste la largeur de la section gauche */
+		background-color: #002d72; /* Couleur de fond de la boîte autour de la section gauche */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-right: 2px solid #002d72; /* Ligne de séparation entre gauche et droite */
+		height: 150px;
+	}
+
+	.header-left .logo img {
+		max-width: 100%; /* Ajuste selon la taille de ton logo */
+	}
+
+	.header-right {
+		flex-basis: 85%; /* Ajuste la largeur de la section droite */
+		text-align: center;
+		color: #ffffff;
+		position: absolute; /* Positionnement absolu pour centrer */
+		left: 50%; /* Positionne horizontalement au centre */
+		top: 50%; /* Positionne verticalement au centre */
+		transform: translate(-50%, -50%); /* Centre exactement */
+	}
+
+	.header-right h1 {
+		margin: 0;
+		font-size: 2.5em;
+	}
+
+	.content {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 20px;
+	}
+
+	.section {
+		background-color: #f8f3ec;
+		padding: 20px;
+		border: 2px solid #002d72; /* Bordure bleue */
+		flex-basis: 48%; /* Pour garder les sections côte à côte avec un espace */
+	}
+
+	.section.resume {
+		padding: 20px;
+		border-top: 2px solid #002d72;  /* Garde les autres bordures */
+		border-bottom: 2px solid #002d72;
+		border-left: 2px solid #002d72;
+		border-right: none; /* Supprime la bordure droite */
+		flex-basis: 48%; /* Pour garder les sections côte à côte avec un espace */
+	}
+
+	.resume p {
+		font-size: 1em;
+		line-height: 1.5;
+	}
+
+	.projects ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.projects li {
+		margin-bottom: 10px;
+	}
+
+
+	.projects a:hover {
+		text-decoration: underline;
+	}
+
+</style>

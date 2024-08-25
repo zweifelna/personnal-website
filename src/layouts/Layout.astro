@@ -1,0 +1,73 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="Portfolio" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	}
+	html {
+		font-family: system-ui, sans-serif;
+		background: #FFF8F0;
+		background-size: 224px;
+	}
+	
+	@font-face {
+		font-family: 'NyghtSerif';
+		src: url('/fonts/NyghtSerif-Medium.woff2') format('woff2'),
+			url('/fonts/NyghtSerif-Medium.woff') format('woff');
+		font-weight: medium;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'GeistMono';
+		src: url('/fonts/GeistMono-Medium.woff2') format('woff2'),
+			url('/fonts/GeistMono-Medium.woff') format('woff');
+		font-weight: medium;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'GeistMonoBold';
+		src: url('/fonts/GeistMono-Bold.woff2') format('woff2'),
+			url('/fonts/GeistMono-Bold.woff') format('woff');
+		font-weight: bold;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'GeistMonoSemiBold';
+		src: url('/fonts/GeistMono-SemiBold.woff2') format('woff2'),
+			url('/fonts/GeistMono-SemiBold.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+</style>
