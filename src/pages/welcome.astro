@@ -3,11 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Nathan Zweifel">
 	<div class="container">
         <header class="header">
             <div class="header-left">
-				Test
+				<div class="logo">
+                    <img src="images/logoN.svg" alt="Logo" />
+                </div>
             </div>
             <div class="header-right">
                 <!-- Contenu de la section longue (droite) -->
@@ -15,18 +17,27 @@ import Card from '../components/Card.astro';
             </div>
         </header>
         <div class="content">
-            <div class="section resume">
-                <h2>Resume</h2>
-                <p>Nathan Zweifel is a Swiss interaction designer with a background in media engineering who is fascinated by tangible interfaces, game design, and the innovative use of AI for storytelling, focusing on playful experiences.</p>
-				<p>Among his projects, Nathan developed a small robot designed to help children create collaborative stories, fostering both creativity and teamwork. He is currently working on a video game that offers critical reflections on technology and its repairability.</p>
-            </div>
+            <div class="left-column">
+				<div class="section resume">
+					<h2>Resume</h2>
+					<p>Nathan Zweifel is a Swiss interaction designer with a background in media engineering who is fascinated by tangible interfaces, game design, and the innovative use of AI for storytelling, focusing on playful experiences.</p>
+					<p>Among his projects, Nathan developed a small robot designed to help children create collaborative stories, fostering both creativity and teamwork. He is currently working on a video game that offers critical reflections on technology and its repairability.</p>
+				</div>
+				<div class="section contact">
+					<h2>Contact</h2>
+					<ul>
+						<li>Email: <a href="mailto:example@example.com">example@example.com</a></li>
+						<li>LinkedIn: <a href="https://www.linkedin.com/in/example">linkedin.com/in/example</a></li>
+						<li>GitHub: <a href="https://github.com/example">github.com/example</a></li>
+					</ul>
+				</div>
+			</div>
             <div class="section projects">
                 <h2>Projects</h2>
                 <ul>
                     <li><a href="#">Trust the repair (2024)</a></li>
                     <li><a href="#">Jardin des Aiguilles (2024)</a></li>
                     <li><a href="#">Psychopomp (2023)</a></li>
-                    <!-- Ajoute les autres projets ici -->
                 </ul>
             </div>
         </div>
@@ -35,14 +46,21 @@ import Card from '../components/Card.astro';
 
 <style>
 
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
 	h1,h2 {
 		font-family: 'NyghtSerif', sans-serif;
 		font-size: 2.5em; /* Optionnel : ajuster la taille de la police */
     	color: #0D1F9B; /* Optionnel : ajuster la couleur du texte */
 	}
 
-	h2 {
+	.section h2 {
 		font-size: 2em;
+		padding-top: 4vh;
+		padding-bottom: 2vh;
 	}
 
 	p, a {
@@ -52,7 +70,7 @@ import Card from '../components/Card.astro';
 	}
 
 	body {
-		background-color: #f8f3ec; /* Fond crème */
+		background-color: #FDF4ED; /* Fond crème */
 		margin: 0;
 		padding: 0;
 		color: #0D1F9B;
@@ -61,25 +79,25 @@ import Card from '../components/Card.astro';
 	.container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 20px;
+		padding: 5%;
 	}
 
 	.header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		border: 2px solid #002d72; /* Bordure bleue */
+		border: 2px solid #0D1F9B; /* Bordure bleue */
 		position: relative; /* Pour permettre le centrage absolu */
 		height: 150px; /* Ajuste la hauteur du header selon tes besoins */
 	}
 
 	.header-left {
 		flex-basis: 15%; /* Ajuste la largeur de la section gauche */
-		background-color: #002d72; /* Couleur de fond de la boîte autour de la section gauche */
+		
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-right: 2px solid #002d72; /* Ligne de séparation entre gauche et droite */
+		border-right: 2px solid #0D1F9B; /* Ligne de séparation entre gauche et droite */
 		height: 150px;
 	}
 
@@ -105,28 +123,52 @@ import Card from '../components/Card.astro';
 	.content {
 		display: flex;
 		justify-content: space-between;
-		margin-top: 20px;
+	}
+
+	.left-column {
+		display: flex;
+		flex-direction: column;
+		flex-basis: 66%; /* Largeur de la colonne de gauche (Resume et Contact) */
 	}
 
 	.section {
-		background-color: #f8f3ec;
-		padding: 20px;
-		border: 2px solid #002d72; /* Bordure bleue */
-		flex-basis: 48%; /* Pour garder les sections côte à côte avec un espace */
+		padding: 4.125%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border: 2px solid #0D1F9B; /* Bordure bleue */
+		flex-basis: 33%; /* Pour garder les sections côte à côte avec un espace */
+		border-top: none;
 	}
 
-	.section.resume {
-		padding: 20px;
-		border-top: 2px solid #002d72;  /* Garde les autres bordures */
-		border-bottom: 2px solid #002d72;
-		border-left: 2px solid #002d72;
+	.section.resume{
+		padding: 8.25%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-bottom: 2px solid #0D1F9B;
+		border-left: 2px solid #0D1F9B;
 		border-right: none; /* Supprime la bordure droite */
-		flex-basis: 48%; /* Pour garder les sections côte à côte avec un espace */
+		flex-basis: 66%; /* Pour garder les sections côte à côte avec un espace */
+	}
+
+	.section.contact {
+		padding: 8.25%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-top: none; /* Supprime la bordure en haut */
+		border-left: 2px solid #0D1F9B; /* Ajoute une bordure gauche pour correspondre à Resume */
+		flex-basis: 66%; /* Pour garder les sections côte à côte avec un espace */
+		border-right: none; /* Supprime la bordure droite */
+		font-family: 'GeistMono', sans-serif;
+	}
+	
+	.section.contact a{
+		padding-bottom: 1.5em;
 	}
 
 	.resume p {
 		font-size: 1em;
 		line-height: 1.5;
+		padding-bottom: 1.5em;
 	}
 
 	.projects ul {
@@ -141,6 +183,34 @@ import Card from '../components/Card.astro';
 
 	.projects a:hover {
 		text-decoration: underline;
+	}
+
+	.contact {
+    flex-basis: 100%; /* Prend toute la largeur disponible sous "Resume" */
+	}
+
+	.contact ul {
+		list-style-type: none;
+		padding: 0;
+		margin-bottom: 4vh;
+	}
+
+	.contact a {
+		color: #002d72;
+		text-decoration: none;
+		font-weight: bold;
+	}
+
+	.contact a:hover {
+		text-decoration: underline;
+	}
+
+	.logo img {
+    transition: transform 0.6s ease-in-out; /* Ajoute une transition douce */
+	}
+
+	.logo img:hover {
+		transform: rotate(360deg); /* Fait pivoter l'image de 360 degrés */
 	}
 
 </style>
