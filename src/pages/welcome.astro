@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import { handleProjectClick } from '../scripts/projectToggle.ts';
 ---
 
 <Layout title="Nathan Zweifel">
@@ -26,22 +27,105 @@ import Card from '../components/Card.astro';
 				<div class="section contact">
 					<h2>Contact</h2>
 					<ul>
-						<li>Email: <a href="mailto:example@example.com">example@example.com</a></li>
-						<li>LinkedIn: <a href="https://www.linkedin.com/in/example">linkedin.com/in/example</a></li>
-						<li>GitHub: <a href="https://github.com/example">github.com/example</a></li>
+						<li>Email: <a href="mailto:hello@nathanzweifel.ch">hello@nathanzweifel.ch</a></li>
+						<li>LinkedIn: <a href="https://www.linkedin.com/in/nathan-zweifel-639aa9192/">linkedin.com/in/nathan-zweifel-639aa9192</a></li>
+						<li>GitHub: <a href="https://github.com/zweifelna">github.com/zweifelna</a></li>
 					</ul>
 				</div>
 			</div>
-            <div class="section projects">
+            <div class="right-column section projects">
                 <h2>Projects</h2>
                 <ul>
-                    <li><a href="#">Trust the repair (2024)</a></li>
-                    <li><a href="#">Jardin des Aiguilles (2024)</a></li>
-                    <li><a href="#">Psychopomp (2023)</a></li>
+                    <li><a href="#" class="project-link">Trust the repair (2024)</a></li>
+                    <li><a href="#" class="project-link">Jardin des Aiguilles (2024)</a></li>
+                    <li><a href="#" class="project-link">Psychopomp (2023)</a></li>
+					<li><a href="#">Satanic Scissor (2023)</a></li>
+					<li><a href="#">Scuttle! (2023)</a></li>
+					<li><a href="#">Inner Beat (2022)</a></li>
+					<li><a href="#">Kori (2022)</a></li>
                 </ul>
             </div>
         </div>
     </div>
+
+	<script>
+		function handleProjectClick(projectId: string) {
+			const contactSection = document.querySelector<HTMLElement>('.section.contact');
+			const leftColumn = document.querySelector<HTMLElement>('.left-column');
+			const rightColumn = document.querySelector<HTMLElement>('.right-column');
+			const sectionProjects = document.querySelector<HTMLElement>('.section.projects');
+
+			if (contactSection) {
+				contactSection.classList.add('hidden');
+			}
+
+			if (leftColumn) {
+				leftColumn.style.flexBasis = '33%';
+				leftColumn.style.color = 'red';
+			}
+
+			if (rightColumn) {
+				rightColumn.style.flexBasis = '67%';
+			}
+			if (sectionProjects) {
+				sectionProjects.style.color = '#000000';
+				sectionProjects.style.flexBasis = '67%';
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			const projectLinks = document.querySelectorAll('.project-link');
+
+			projectLinks.forEach(link => {
+				link.addEventListener('click', function(event) {
+					event.preventDefault();
+					handleProjectClick((event.currentTarget as HTMLElement).id);
+				});
+			});
+		});
+
+		function resetLayout() {
+			const contactSection = document.querySelector<HTMLElement>('.section.contact');
+			const leftColumn = document.querySelector<HTMLElement>('.left-column');
+			const rightColumn = document.querySelector<HTMLElement>('.right-column');
+			const contentContainer = document.querySelector<HTMLElement>('.content');
+
+			if (contactSection) {
+				contactSection.classList.remove('hidden');
+			}
+
+			if (leftColumn) {
+				leftColumn.style.flexBasis = '66%'; // Revenir à la largeur originale
+				leftColumn.classList.remove('hidden'); // Affiche la colonne gauche
+			}
+
+			if (rightColumn) {
+				rightColumn.style.flexBasis = '33%'; // Revenir à la largeur originale
+			}
+
+			if (contentContainer) {
+				contentContainer.classList.remove('adjust-width');
+			}
+		}
+
+		document.addEventListener('DOMContentLoaded', function() {
+			const projectLinks = document.querySelectorAll('.project-link');
+			const logo = document.getElementById('logo');
+
+			projectLinks.forEach(link => {
+				link.addEventListener('click', function(event) {
+					event.preventDefault();
+					handleProjectClick((event.currentTarget as HTMLElement).id);
+				});
+			});
+
+			if (logo) {
+				logo.addEventListener('click', function() {
+					resetLayout(); // Réinitialiser la mise en page lorsque le logo est cliqué
+				});
+			}
+		});
+	</script>
 </Layout>
 
 <style>
@@ -123,12 +207,27 @@ import Card from '../components/Card.astro';
 	.content {
 		display: flex;
 		justify-content: space-between;
+		transition: all 0.5s ease;
+	}
+
+	.content.adjust-width {
+		width: auto; /* Reviens à la largeur automatique après réinitialisation */
 	}
 
 	.left-column {
 		display: flex;
 		flex-direction: column;
 		flex-basis: 66%; /* Largeur de la colonne de gauche (Resume et Contact) */
+		transition: flex-basis 0.5s ease; /* Transition for resizing */
+	}
+
+	.right-column {
+		flex-basis: 33%; /* Initial width of the right column */
+		transition: flex-basis 0.5s ease;
+	}
+
+	.expand-right {
+		flex-basis: 85%; /* Increase the size of the left column */
 	}
 
 	.section {
@@ -136,8 +235,12 @@ import Card from '../components/Card.astro';
 		padding-top: 0;
 		padding-bottom: 0;
 		border: 2px solid #0D1F9B; /* Bordure bleue */
-		flex-basis: 33%; /* Pour garder les sections côte à côte avec un espace */
 		border-top: none;
+	}
+
+	.section.hidden {
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out; /* Fade out the sections */
 	}
 
 	.section.resume{
@@ -159,10 +262,20 @@ import Card from '../components/Card.astro';
 		flex-basis: 66%; /* Pour garder les sections côte à côte avec un espace */
 		border-right: none; /* Supprime la bordure droite */
 		font-family: 'GeistMono', sans-serif;
+		transition: flex-basis 0.5s ease;
+	}
+
+	.hidden {
+		flex-basis: 0;
+		overflow: hidden; /* Ensures content does not overflow during transition */
 	}
 	
 	.section.contact a{
 		padding-bottom: 1.5em;
+	}
+
+	.section.projects {
+		transition: flex-basis 0.5s ease-in-out; /* Transition for resizing */
 	}
 
 	.resume p {
@@ -196,7 +309,7 @@ import Card from '../components/Card.astro';
 	}
 
 	.contact a {
-		color: #002d72;
+		color: #0D1F9B;
 		text-decoration: none;
 		font-weight: bold;
 	}
@@ -206,11 +319,25 @@ import Card from '../components/Card.astro';
 	}
 
 	.logo img {
-    transition: transform 0.6s ease-in-out; /* Ajoute une transition douce */
+    transition: transform 0.4s ease-in-out; /* Ajoute une transition douce */
 	}
 
 	.logo img:hover {
-		transform: rotate(360deg); /* Fait pivoter l'image de 360 degrés */
+		transform: rotate(180deg); /* Fait pivoter l'image de 360 degrés */
+	}
+
+	#project-link {
+		display: inline-block;
+    	transition: transform 0.3s ease, color 0.3s ease;
+	}
+
+	#project-link.clicked {
+		transform: scale(1.2);
+		color: #ff6347; /* Tomato color */
+	}
+
+	.left-column, .right-column {
+		transition: flex-basis 0.5s ease;
 	}
 
 </style>
