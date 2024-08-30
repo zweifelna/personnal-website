@@ -49,7 +49,28 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
     </div>
 
 	<script>
-		function handleProjectClick(projectId: string) {
+		type ProjectId = 'project-1' | 'project-2' | 'project-3';
+			const projectDetails: Record<ProjectId, { title: string; description: string }> = {
+			"project-1": {
+				title: "Trust the repair (2024)",
+				description: "This project focuses on sustainable repair practices in a post-capitalist solarpunk world..."
+			},
+			"project-2": {
+				title: "Jardin des Aiguilles (2024)",
+				description: "A deep dive into the world of automated needle gardens and their impact on urban greening..."
+			},
+			"project-3": {
+				title: "Psychopomp (2023)",
+				description: "A game exploring the journey of the soul after death, inspired by ancient mythology..."
+			}
+			// Ajoutez d'autres projets ici
+		};
+		
+		function isProjectId(id: string): id is ProjectId {
+			return ["project-1", "project-2", "project-3"].includes(id);
+		}
+
+		function handleProjectClick(projectId: ProjectId) {
 			const contactSection = document.querySelector<HTMLElement>('.section.contact');
 			const leftColumn = document.querySelector<HTMLElement>('.left-column');
 			const rightColumn = document.querySelector<HTMLElement>('.right-column');
@@ -66,11 +87,19 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 
 			if (rightColumn) {
 				rightColumn.style.flexBasis = '67%';
+				// Modifier le texte de la section "Projects" en fonction du projet cliqué
+				const project = projectDetails[projectId as keyof typeof projectDetails];
+				if (project) {
+					rightColumn.innerHTML = `
+						<h2>${project.title}</h2>
+						<p>${project.description}</p>
+					`;
+				}
 			}
-			if (sectionProjects) {
-				sectionProjects.style.color = '#000000';
-				sectionProjects.style.flexBasis = '67%';
-			}
+			// if (sectionProjects) {
+			// 	sectionProjects.style.color = '#000000';
+			// 	sectionProjects.style.flexBasis = '67%';
+			// }
 		}
 
 		document.addEventListener('DOMContentLoaded', function() {
@@ -79,7 +108,14 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			projectLinks.forEach(link => {
 				link.addEventListener('click', function(event) {
 					event.preventDefault();
-					handleProjectClick((event.currentTarget as HTMLElement).id);
+					const projectId = (event.currentTarget as HTMLElement).id;
+            
+					// Utilisation du type guard pour s'assurer que projectId est un ProjectId
+					if (isProjectId(projectId)) {
+						handleProjectClick(projectId);
+					} else {
+						console.error("Invalid project ID:", projectId);
+					}
 				});
 			});
 		});
@@ -88,23 +124,29 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			const contactSection = document.querySelector<HTMLElement>('.section.contact');
 			const leftColumn = document.querySelector<HTMLElement>('.left-column');
 			const rightColumn = document.querySelector<HTMLElement>('.right-column');
-			const contentContainer = document.querySelector<HTMLElement>('.content');
 
 			if (contactSection) {
 				contactSection.classList.remove('hidden');
 			}
 
 			if (leftColumn) {
-				leftColumn.style.flexBasis = '66%'; // Revenir à la largeur originale
-				leftColumn.classList.remove('hidden'); // Affiche la colonne gauche
+				leftColumn.style.flexBasis = '66%';
+				leftColumn.classList.remove('hidden');
 			}
 
 			if (rightColumn) {
-				rightColumn.style.flexBasis = '33%'; // Revenir à la largeur originale
-			}
+				rightColumn.style.flexBasis = '33%';
 
-			if (contentContainer) {
-				contentContainer.classList.remove('adjust-width');
+				// Réinitialiser le contenu de la section "Projects"
+				rightColumn.innerHTML = `
+					<h2>Projects</h2>
+					<ul>
+						<li><a href="#" class="project-link" id="project-1">Trust the repair (2024)</a></li>
+						<li><a href="#" class="project-link" id="project-2">Jardin des Aiguilles (2024)</a></li>
+						<li><a href="#" class="project-link" id="project-3">Psychopomp (2023)</a></li>
+						<!-- Ajoutez les autres projets ici -->
+					</ul>
+				`;
 			}
 		}
 
@@ -115,7 +157,14 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			projectLinks.forEach(link => {
 				link.addEventListener('click', function(event) {
 					event.preventDefault();
-					handleProjectClick((event.currentTarget as HTMLElement).id);
+					const projectId = (event.currentTarget as HTMLElement).id;
+            
+					// Utilisation du type guard pour s'assurer que projectId est un ProjectId
+					if (isProjectId(projectId)) {
+						handleProjectClick(projectId);
+					} else {
+						console.error("Invalid project ID:", projectId);
+					}
 				});
 			});
 
@@ -125,6 +174,7 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 				});
 			}
 		});
+		
 	</script>
 </Layout>
 
@@ -323,7 +373,7 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 	}
 
 	.logo img:hover {
-		transform: rotate(180deg); /* Fait pivoter l'image de 360 degrés */
+		transform: rotate(360deg); /* Fait pivoter l'image de 360 degrés */
 	}
 
 	#project-link {
