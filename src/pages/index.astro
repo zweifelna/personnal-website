@@ -19,7 +19,7 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
         </header>
         <div class="content">
             <div class="left-column">
-				<div class="section resume">
+				<div class="section resume" id="resume-section">
 					<h2>Resume</h2>
 					<p>Nathan Zweifel is a Swiss interaction designer with a background in media engineering who is fascinated by tangible interfaces, game design, and the innovative use of AI for storytelling, focusing on playful experiences.</p>
 				</div>
@@ -33,51 +33,163 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 				</div>
 			</div>
             <div class="right-column section projects">
-                <h2>Projects</h2>
-                <ul>
-                    <li><a href="#" class="project-link">Trust the repair (2024)</a></li>
-                    <li><a href="#" class="project-link">Jardin des Aiguilles (2024)</a></li>
-                    <li><a href="#" class="project-link">Psychopomp (2023)</a></li>
-					<li><a href="#">Satanic Scissor (2023)</a></li>
-					<li><a href="#">Scuttle! (2023)</a></li>
-					<li><a href="#">Inner Beat (2022)</a></li>
-					<li><a href="#">Kori (2022)</a></li>
-                </ul>
+				<div id ="project-list">
+					<h2>Projects</h2>
+					<ul>
+						<li><a href="#" class="project-link" data-id="project1">Trust the repair (2024)</a></li>
+						<li><a href="#" class="project-link" data-id="project2">Jardin des Aiguilles (2024)</a></li>
+						<li><a href="#" class="project-link" data-id="project3">Psychopomp (2023)</a></li>
+						<li><a href="#">Satanic Scissor (2023)</a></li>
+						<li><a href="#">Scuttle! (2023)</a></li>
+						<li><a href="#">Inner Beat (2022)</a></li>
+						<li><a href="#">Kori (2022)</a></li>
+					</ul>
+				</div>
+				<!-- Zone pour la vidéo ou l'image principale -->
+				<div id="project-media">
+					<!-- La vidéo ou l'image principale s'afficheront ici -->
+				</div>
+			
+				<!-- Zone pour les trois images miniatures en dessous -->
+				<div id="project-thumbnails">
+					<img id="thumbnail1" class="thumbnail hidden" alt="Thumbnail 1">
+					<img id="thumbnail2" class="thumbnail hidden" alt="Thumbnail 2">
+					<img id="thumbnail3" class="thumbnail hidden" alt="Thumbnail 3">
+				</div>				
             </div>
         </div>
     </div>
 
 	<script>
-		function handleProjectClick(projectId: string) {
+		let initialResumeContent = '';
+
+		const projectMedia = {
+			project1: {
+				video: `<iframe width="560" height="315" src="https://www.youtube.com/embed/HobsON9SynQ?si=wwHUgEfNtW0WlRKK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+				thumbnails: [
+					'images/thumb1.jpg',
+					'images/thumb1.jpg',
+					'images/thumb1.jpg'
+				]
+			},
+			project2: {
+				video: `<img src="project2.jpg" alt="Project 2 Image">`, // Utilise une image au lieu d'une vidéo
+				thumbnails: [
+					'<img src="thumb2-1.jpg" alt="Thumbnail 1" class="thumbnail">',
+					'<img src="thumb2-2.jpg" alt="Thumbnail 2" class="thumbnail">',
+					'<img src="thumb2-3.jpg" alt="Thumbnail 3" class="thumbnail">',
+				]
+			},
+			project3: {
+				video: `<video controls width="100%">
+						<source src="video3.mp4" type="video/mp4">
+						Your browser does not support the video tag.
+					</video>`,
+				thumbnails: [
+					'<img src="thumb3-1.jpg" alt="Thumbnail 1" class="thumbnail">',
+					'<img src="thumb3-2.jpg" alt="Thumbnail 2" class="thumbnail">',
+					'<img src="thumb3-3.jpg" alt="Thumbnail 3" class="thumbnail">'
+				]
+			}
+		};
+
+
+		type ProjectId = 'project1' | 'project2' | 'project3';
+		
+		const projectDescriptions: Record<ProjectId, string> = {
+			project1: "Trust the Repair is a narrative mobile game where you troubleshoot a popular tech product for a company. Initially, your tasks are simple: fix the devices and send them back. However, you soon encounter modified objects and recurring issues, making you question the company's promise of durability.<br><br> The situation worsens when the company is bought by investors who enforce strict policies on non-compliant devices and demand forced updates and data tracers. Simultaneously, activists reach out, urging you to resist the new management. You must navigate the balance between maintaining your job and helping the activists. Will you remain a part of the company\'s machinery or will you fight for the right to repair and technological sovereignty?",
+			project2: "Jardin des Aiguilles is an immersive experience that blends nature and technology to create an interactive garden.",
+			project3: "Psychopomp is a narrative-driven game that delves into the mysteries of the afterlife, guiding souls to their final resting place.",
+			// Ajoutez d'autres descriptions de projets ici
+		};
+
+		function handleProjectClick(projectId: ProjectId) {
 			const contactSection = document.querySelector<HTMLElement>('.section.contact');
 			const leftColumn = document.querySelector<HTMLElement>('.left-column');
 			const rightColumn = document.querySelector<HTMLElement>('.right-column');
 			const sectionProjects = document.querySelector<HTMLElement>('.section.projects');
+			const resumeSection = document.getElementById('resume-section');
+			const projectMediaContainer = document.getElementById('project-media');
+    		const projectThumbnailsContainer = document.getElementById('project-thumbnails');
+			const projectList = document.getElementById('project-list');
+
+			if (projectList) {
+				projectList.classList.add('hidden');
+				projectList.classList.remove('visible');
+			}
 
 			if (contactSection) {
 				contactSection.classList.add('hidden');
 			}
 
 			if (leftColumn) {
-				leftColumn.style.flexBasis = '33%';
+				leftColumn.style.flexBasis = '45%';
 			}
 
 			if (rightColumn) {
-				rightColumn.style.flexBasis = '67%';
+				rightColumn.style.flexBasis = '56%';
 			}
 			if (sectionProjects) {
 				sectionProjects.style.color = '#000000';
-				sectionProjects.style.flexBasis = '67%';
+				sectionProjects.style.flexBasis = '56%';
 			}
+			if (resumeSection && projectId in projectDescriptions) {
+				resumeSection.innerHTML = `<h2>${document.querySelector(`[data-id="${projectId}"]`)?.textContent}</h2><p>${projectDescriptions[projectId]}</p>`;
+			}
+			// Met à jour le contenu vidéo ou image principale
+			if (projectMediaContainer && projectId in projectMedia) {
+				setTimeout(() => {
+					projectMediaContainer.innerHTML = projectMedia[projectId].video;
+				}, 400); // Ajuster la durée (500 ms) pour correspondre à la durée de la transition CSS
+			}
+			// Met à jour les miniatures
+			if (projectThumbnailsContainer && projectId in projectMedia) {
+				const thumbnails = projectMedia[projectId].thumbnails;
+
+				// Modifier dynamiquement le 'src' des images déjà présentes dans le DOM
+				const thumbnail1 = document.getElementById('thumbnail1') as HTMLImageElement;
+				const thumbnail2 = document.getElementById('thumbnail2') as HTMLImageElement;
+				const thumbnail3 = document.getElementById('thumbnail3') as HTMLImageElement;
+
+				if (thumbnail1) {
+					thumbnail1.src = thumbnails[0]; // Ajoute la première image
+					thumbnail1.classList.remove('hidden');
+				}
+
+				if (thumbnail2) {
+					thumbnail2.src = thumbnails[1]; // Ajoute la deuxième image
+					thumbnail2.classList.remove('hidden');
+				}
+
+				if (thumbnail3) {
+					thumbnail3.src = thumbnails[2]; // Ajoute la troisième image
+					thumbnail3.classList.remove('hidden');
+				}
+			}
+
+
 		}
 
 		document.addEventListener('DOMContentLoaded', function() {
+			const resumeSection = document.getElementById('resume-section');
+    
+			if (resumeSection) {
+				initialResumeContent = resumeSection.innerHTML; // Sauvegarde du contenu initial
+			}
 			const projectLinks = document.querySelectorAll('.project-link');
 
 			projectLinks.forEach(link => {
 				link.addEventListener('click', function(event) {
 					event.preventDefault();
-					handleProjectClick((event.currentTarget as HTMLElement).id);
+					const projectId = (event.currentTarget as HTMLElement).getAttribute('data-id');
+
+					// Validation du type de projectId
+					if (projectId && projectId in projectDescriptions) {
+						handleProjectClick(projectId as ProjectId);
+					} else {
+						console.error("Invalid project ID:", projectId);
+					}
+
 				});
 			});
 		});
@@ -87,6 +199,27 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			const contactSection = document.querySelector<HTMLElement>('.section.contact');
 			const leftColumn = document.querySelector<HTMLElement>('.left-column');
 			const rightColumn = document.querySelector<HTMLElement>('.right-column');
+			const resumeSection = document.getElementById('resume-section');
+			const projectList = document.getElementById('project-list');
+			const projectMediaContainer = document.getElementById('project-media');
+			const projectThumbnailsContainer = document.getElementById('project-thumbnails');
+			const thumbnail1 = document.getElementById('thumbnail1');
+			const thumbnail2 = document.getElementById('thumbnail2');
+			const thumbnail3 = document.getElementById('thumbnail3');
+
+			// Ajouter la classe hidden aux miniatures
+			if (thumbnail1) {
+				thumbnail1.classList.add('hidden');
+			}
+
+			if (thumbnail2) {
+				thumbnail2.classList.add('hidden');
+			}
+
+			if (thumbnail3) {
+				thumbnail3.classList.add('hidden');
+			}
+			
 
 			if (contactSection) {
 				contactSection.classList.remove('hidden');
@@ -101,6 +234,21 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			if (rightColumn) {
 				rightColumn.style.flexBasis = '33%'; // Remet la largeur d'origine de la colonne droite
 			}
+
+			if (resumeSection) {
+				resumeSection.innerHTML = initialResumeContent; // Remet le contenu initial
+			}
+
+			if (projectList) {
+				projectList.classList.remove('hidden');
+				projectList.classList.add('visible');
+			}
+
+			// Vide la zone de la vidéo ou des images
+				if (projectMediaContainer) {
+					projectMediaContainer.innerHTML = '';
+				}
+
 		}
 
 		document.addEventListener('DOMContentLoaded', function() {
@@ -120,7 +268,15 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			projectLinks.forEach(link => {
 				link.addEventListener('click', function(event) {
 					event.preventDefault();
-					handleProjectClick((event.currentTarget as HTMLElement).id);
+					const projectId = (event.currentTarget as HTMLElement).getAttribute('data-id');
+
+					// Validation du type de projectId
+					if (projectId && projectId in projectDescriptions) {
+						handleProjectClick(projectId as ProjectId);
+					} else {
+						console.error("Invalid project ID:", projectId);
+					}
+
 				});
 			});
 
@@ -190,7 +346,7 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 		height: 150px;
 	}
 
-	.header-left .logo img {
+	.header-left .logo {
 		max-width: 100%; /* Ajuste selon la taille de ton logo */
 	}
 
@@ -312,12 +468,11 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 		list-style-type: none;
 		padding: 0;
 		margin-bottom: 4vh;
+		line-height: 1.5;
 	}
 
 	.contact a {
 		color: #0D1F9B;
-		text-decoration: none;
-		font-weight: bold;
 	}
 
 	.contact a:hover {
@@ -344,5 +499,39 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 	.left-column, .right-column {
 		transition: flex-basis 0.5s ease;
 	}
+	
+	#project-media {
+    margin-top: 20px;
+    text-align: center;
+	}
+
+	#project-thumbnails {
+		display: flex;
+		justify-content: space-between; /* Espace entre les images */
+		gap: 10px; /* Espacement entre les miniatures */
+	}
+
+	.thumbnail {
+		width: 100px;
+		height: 100px;
+		object-fit: cover; /* Remplit l'espace sans déformer l'image */
+		cursor: pointer; /* Indique que l'image est cliquable */
+	}
+
+	#project-list {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	#project-list.hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	#project-list.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+
+
 
 </style>

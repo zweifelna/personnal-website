@@ -33,9 +33,20 @@ const { title } = Astro.props;
 		);
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		background: #FFF8F0;
+		font-family: 'NyghtSerif', sans-serif;
+		background: #FDF4ED;
 		background-size: 224px;
+	}
+
+	html .section h2 {
+		font-family: 'NyghtSerif', sans-serif;
+		font-size: 2em;
+	}
+
+	html p {
+		font-family: 'GeistMono', sans-serif;
+		font-size: 1em; /* Optionnel : ajuster la taille de la police */
+    	color: #0D1F9B; /* Optionnel : ajuster la couleur du texte */
 	}
 	
 	@font-face {
