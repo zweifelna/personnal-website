@@ -14,7 +14,7 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
             </div>
             <div class="header-right">
                 <!-- Contenu de la section longue (droite) -->
-                <h1>Nathan Zweifel</h1>
+                <h1 id="nathan-zw">Nathan Zweifel</h1>
             </div>
         </header>
         <div class="content">
@@ -38,11 +38,12 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 					<ul>
 						<li><a href="#" class="project-link" data-id="project1">Trust the repair (2024)</a></li>
 						<li><a href="#" class="project-link" data-id="project2">Jardin des Aiguilles (2024)</a></li>
-						<li><a href="#" class="project-link" data-id="project3">Psychopomp (2023)</a></li>
+						<li><a href="#" class="project-link" data-id="project3">Psychopomp’s Pledge (2023)</a></li>
 						<li><a href="#" class="project-link" data-id="project4">Satanic Scissor (2023)</a></li>
 						<li><a href="#" class="project-link" data-id="project5">Scuttle! (2023)</a></li>
 						<li><a href="#" class="project-link" data-id="project6">Inner Beat (2022)</a></li>
-						<li><a href="#" class="project-link" data-id="project7">Kori (2022)</a></li>
+						<li><a href="#" class="project-link" data-id="project7">Tothem (2022)</a></li>
+						<li><a href="#" class="project-link" data-id="project8">Kori (2022)</a></li>
 					</ul>
 				</div>
 				<!-- Zone pour la vidéo ou l'image principale -->
@@ -68,38 +69,66 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 				video: `<iframe width="560" height="315" src="https://www.youtube.com/embed/HobsON9SynQ?si=wwHUgEfNtW0WlRKK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
 				thumbnails: [
 					'images/thumb1.jpg',
-					'images/thumb1.jpg',
-					'images/thumb1.jpg'
+					'images/thumb2.jpg',
+					'images/thumb3.jpeg'
 				]
 			},
 			project2: {
-				video: `<img src="project2.jpg" alt="Project 2 Image">`, // Utilise une image au lieu d'une vidéo
+				video: `<iframe width="560" height="315" src="https://vimeo.com/1009290848?share=copy" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`, 
 				thumbnails: [
-					'<img src="thumb2-1.jpg" alt="Thumbnail 1" class="thumbnail">',
-					'<img src="thumb2-2.jpg" alt="Thumbnail 2" class="thumbnail">',
-					'<img src="thumb2-3.jpg" alt="Thumbnail 3" class="thumbnail">',
+					'images/thumb2-1.jpg',
+					'images/thumb2-2.jpg',
+					'images/blank.png'
 				]
 			},
 			project3: {
-				video: `<video controls width="100%">
-						<source src="video3.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-					</video>`,
+				video: `<iframe width="560" height="315" src="https://www.youtube.com/embed/F71fn3GbklE?si=YkSgcFd65K0bpPMq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
 				thumbnails: [
-					'<img src="thumb3-1.jpg" alt="Thumbnail 1" class="thumbnail">',
-					'<img src="thumb3-2.jpg" alt="Thumbnail 2" class="thumbnail">',
-					'<img src="thumb3-3.jpg" alt="Thumbnail 3" class="thumbnail">'
+					'images/thumb3-1.webp',
+					'images/thumb3-2.webp',
+					'images/thumb3-3.webp'
 				]
 			},
 			project4: {
-				video: `<video controls width="100%">
-						<source src="video3.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-					</video>`,
+				video: `<iframe width="560" height="315" src="https://www.youtube.com/embed/mWov9qY61Gw?si=NKXpUOt6YLsK1Qg3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
 				thumbnails: [
-					'<img src="thumb3-1.jpg" alt="Thumbnail 1" class="thumbnail">',
-					'<img src="thumb3-2.jpg" alt="Thumbnail 2" class="thumbnail">',
-					'<img src="thumb3-3.jpg" alt="Thumbnail 3" class="thumbnail">'
+					'images/thumb4-1.webp',
+					'images/thumb4-2.webp',
+					'images/thumb4-3.webp'
+				]
+			},
+			project5: {
+				video: `<img width="560" height="315" src="images/thumb5.webp" alt="Scuttle!">`, // Utilise une image au lieu d'une vidéo
+				thumbnails: [
+					'images/thumb5-1.webp',
+					'images/thumb5-2.webp',
+					'images/blank.png'
+			
+				]
+			},
+			project6: {
+				video: `<img width="560" height="315" src="images/thumb6.jpg" alt="Scuttle!">`, // Utilise une image au lieu d'une vidéo
+				thumbnails: [
+					'images/thumb6-1.jpg',
+					'images/thumb6-2.jpg',
+					'images/thumb6-3.jpg'
+					
+				]
+			},
+			project7: {
+				video: `<iframe width="560" height="315" src="https://www.youtube.com/embed/g6NbTU81lG8?si=ufPUUdc2mmS9Sx3v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`, // Utilise une image au lieu d'une vidéo
+				thumbnails: [
+					'images/thumb7-1.webp',
+					'images/thumb7-2.webp',
+					'images/thumb7-3.webp'
+				]
+			},
+			project8: {
+				video: `<img width="560" height="315" src="images/thumb8.jpg" alt="Scuttle!">`, // Utilise une image au lieu d'une vidéo
+				thumbnails: [
+					'images/thumb8-1.jpg',
+					'images/thumb8-2.jpg',
+					'images/thumb8-3.jpg'
 				]
 			}
 		};
@@ -141,25 +170,49 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 			});
 		});
 
-		// Ajoute un écouteur d'événement pour la touche "Escape"
+		// Fonction qui vérifie s'il y a une image active
+		function hasActiveThumbnail(): boolean {
+			return document.querySelector('.thumbnail.active') !== null;
+		}
+
+		// Ajouter un écouteur d'événement pour la touche "Escape"
 		document.addEventListener('keydown', (event) => {
 			if (event.key === 'Escape') {
-				// Réinitialise toutes les images quand "Esc" est pressé
-				thumbnails.forEach(img => {
-					img.style.transform = 'scale(1)';
-					img.classList.remove('active'); // Réinitialiser le z-index
-				});
+				if (hasActiveThumbnail()) {
+					// Si une image est active, on la réinitialise
+					thumbnails.forEach(img => {
+						img.style.transform = 'scale(1)';
+						img.classList.remove('active'); // Réinitialiser le z-index
+					});
+				} else {
+					// Si aucune image n'est active, on réinitialise toute l'interface
+					resetLayout(); // Appelle la fonction qui réinitialise la mise en page (comme le clic sur le logo)
+				}
 			}
 		});
 
+		// Sélectionner l'élément "Nathan Zweifel"
+		const nathanTitle = document.getElementById('nathan-zw');
 
-		type ProjectId = 'project1' | 'project2' | 'project3' | 'project4';
+		// Vérifier si l'élément existe et ajouter un gestionnaire de clic
+		if (nathanTitle) {
+			nathanTitle.addEventListener('click', () => {
+				resetLayout(); // Appeler la fonction qui réinitialise la mise en page
+			});
+		}
+
+
+		type ProjectId = 'project1' | 'project2' | 'project3' | 'project4' | 'project5' | 'project6' | 'project7' | 'project8' ;
 		
 		const projectDescriptions: Record<ProjectId, string> = {
 			project1: "<i>Trust the Repair</i> is a narrative mobile game where you troubleshoot a popular tech product for a company. Initially, your tasks are simple: fix the devices and send them back. However, you soon encounter modified objects and recurring issues, making you question the company's promise of durability.<br><br> The situation worsens when the company is bought by investors who enforce strict policies on non-compliant devices and demand forced updates and data tracers. Simultaneously, activists reach out, urging you to resist the new management. You must navigate the balance between maintaining your job and helping the activists. Will you remain a part of the company\'s machinery or will you fight for the right to repair and technological sovereignty?",
 			project2: "Like blooming flowers following the sunlight over and over du- ring their ephemeral existence, in the “jardin des aiguilles” watch heads will delicately swaying to follow the perpetual drawings of the magnetic arm above. This installation captivate the precision of an Axidraw machine and nature’s spontaneous choreography, showing how time can be an individual perception, even when dictated by bigger entities.",
 			project3: "Psychopomp’s Pledge is a short VR experience where the player takes on the role of the Psychopomp. As such, their sacred duty is to guide departed souls to the afterlife and to amass oboles from their otherworldly passengers. Today, their charge is a child, waiting in anticipation of their transcendental passage across the spectral river. This journey, from one shore to the other, demands careful handling as they glide their spectral boat across the glimmering currents of the ghostly river, driven by the sweep of their oar. This experience was developed with Unity as part of my Master’s studies in Media Design at HEAD – Geneva and was built around the following constraints: creating a dreamlike experience, utilizing hand tracking offered by Quest 2 headsets, using photogrammetry for asset creation, and producing sounds using the mouth. This project was carried out in collaboration with <a href=\"loukannajjar.ch\"> Louka Najjar.</a>",
-			project4: "Satanic Scissors is a rhythm game that pits players against a mischievous feline fiend in a game of rock-paper-scissors. Players must rely on their quick reflexes and mastery of rock-paper-scissors to score points in rhythm and defeat the demon. This project was developed using P5.js, Teachable Machine, and a camera to recognize hand movements as part of a workshop in the Master of Media Design program at HEAD – Geneva. My work focused on game design and technical aspects, in collaboration with FlexWombat. The graphic assets were created by PouetPouett.",
+			project4: "Satanic Scissors is a rhythm game that pits players against a mischievous feline fiend in a game of rock-paper-scissors. Players must rely on their quick reflexes and mastery of rock-paper-scissors to score points in rhythm and defeat the demon. <br><br>This project was developed using P5.js, Teachable Machine, and a camera to recognize hand movements as part of a workshop in the Master of Media Design program at HEAD – Geneva. My work focused on game design and technical aspects, in collaboration with Louka Najjar. The graphic assets were created by Eupholie.",
+			project5: "Scuttle! is an arcade game where the player controls a spider running for its life. They must navigate through a house full of dangers and go as far as possible. To survive, they need to hide in the shadows of objects lying around—but not for too long. The game features a leaderboard where players can compete with others. <br><br>The game was created for the ScoreSpace Jam #25 with the theme Stealth and won 1st place. I worked on the programming in collaboration with Luka Najjar in Unity, and Eupholie created the art.",
+			project6: "Whether intriguing, disturbing or even painful, we encounter sound pollution in our daily routines. To deal with it, there is the <i>Inner Beat</i>, a wrist-wearable object containing a small creature that represents your hearing sensitivity and helps you to see the power of these noises. <br><br>If the level of sound pollution is too high, the blob starts to deteriorate and so does the protection. You can reconstitute it by resynchronizing its rhythm or spontaneously cooperating with others. When walking outside, be careful not to lose your Inner Beat in front of sound aggression to avoid your blob suffering.",
+			project7: "Tothem is a game based on a physical totem and its representation in the virtual world. The totem attracts disciples, and as their civilization grows and thrives, these citizens have demands. To meet their needs, the player must interact with the physical totem. <br><br>Inside the physical totem, an Arduino and several sensors are hidden, allowing the detection of various inputs, such as shocks or ambient temperature. The totem is connected to the game via Bluetooth. The game was developed using Processing as part of a workshop in the Master of Media Design program at HEAD – Geneva.<br><br>My role in the team primarily involved designing the interaction and working on the programming. Other team members included Elie Höfer, Luka Najjar, and Eupholie.",
+			project8: "Kori is an innovative tangible interface in the form of a small robot designed for children aged 7 to 10. Through a collaborative approach, it allows children to create interactive stories using a question-and-answer format. Powered by artificial intelligence (GPT-3), Kori offers a wide variety of storylines while guiding the children in shaping the narrative.<br><br>Developed using a Raspberry Pi and modeled and 3D-printed, Kori allows children to actively participate in the creation of stories, while providing support to structure their creativity. At the end of each session, the stories can be listened to in class and shared with parents, enhancing both classroom engagement and family involvement.<br><br>This project involved the implementation of all stages of a structured process, including: user research and analysis, collaborative ideation, the progressive selection and refinement of the concept, the development of interactive prototypes, user testing, and even the creation and testing of a website to communicate the launch of such a product."
 		};
 
 		function handleProjectClick(projectId: ProjectId) {
@@ -258,7 +311,6 @@ import { handleProjectClick } from '../scripts/projectToggle.ts';
 		});
 
 		function resetLayout() {
-			console.log("resetLayout() called - Logo clicked");
 			const contactSection = document.querySelector<HTMLElement>('.section.contact');
 			const leftColumn = document.querySelector<HTMLElement>('.left-column');
 			const rightColumn = document.querySelector<HTMLElement>('.right-column');
