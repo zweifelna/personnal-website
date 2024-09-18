@@ -10,8 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.11.0",
     "@astrojs/check": "^0.7.0",
-    "typescript": "^5.5.2"
+    "@julian_cataldo/astro-lightbox": "^0.10.11",
+    "astro": "^4.11.0",
+    "typescript": "^5.5.2",
+    "zoomable-image": "^1.0.3"
+  },
+  "devDependencies": {
+    "sass-embedded": "^1.79.1"
   }
 }
