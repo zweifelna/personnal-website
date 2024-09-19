@@ -2,8 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import { handleProjectClick } from '../scripts/projectToggle.ts';
-import 'zoomable-image/dist/style.css'
-import { initZoomableImages } from 'zoomable-image'
 ---
 
 <Layout title="Nathan Zweifel">
@@ -29,10 +27,10 @@ import { initZoomableImages } from 'zoomable-image'
 				<div class="section contact">
 					<h2>Contact</h2>
 					<ul>
-						<li>email: <a href="mailto:hello@nathanzweifel.ch">hello@nathanzweifel.ch</a></li>
-						<li>gitHub: <a href="https://github.com/zweifelna">github.com/zweifelna</a></li>
-						<li>itch: <a href="https://flexwombat.itch.io/">flexwombat.itch.io</a></li>
-						<li>linkedIn: <a href="https://www.linkedin.com/in/nathanzweifel/">linkedin.com/in/nathanzweifel</a></li>
+						<li>email: <a href="mailto:hello@nathanzweifel.ch" target="_blank">hello@nathanzweifel.ch</a></li>
+						<li>gitHub: <a href="https://github.com/zweifelna" target="_blank">github.com/zweifelna</a></li>
+						<li>itch: <a href="https://flexwombat.itch.io/" target="_blank">flexwombat.itch.io</a></li>
+						<li>linkedIn: <a href="https://www.linkedin.com/in/nathanzweifel/" target="_blank">linkedin.com/in/nathanzweifel</a></li>
 					</ul>
 				</div>
 			</div>
@@ -58,7 +56,7 @@ import { initZoomableImages } from 'zoomable-image'
 			
 				<!-- Zone pour les trois images miniatures en dessous -->
 				<div id="project-thumbnails">
-					<img data-zoomable-image data-zoomable-hd id="thumbnail1" class="thumbnail hidden" alt="Thumbnail 1">
+					<img id="thumbnail1" class="thumbnail hidden" alt="Thumbnail 1">
 					<img id="thumbnail2" class="thumbnail hidden" alt="Thumbnail 2">
 					<img id="thumbnail3" class="thumbnail hidden" alt="Thumbnail 3">
 				</div>				
@@ -73,17 +71,17 @@ import { initZoomableImages } from 'zoomable-image'
 			project1: {
 				videoSrc: `https://www.youtube.com/embed/HobsON9SynQ?si=wwHUgEfNtW0WlRKK"`,
 				thumbnails: [
-					'images/thumb1.jpg',
-					'images/thumb2.jpg',
-					'images/thumb3.jpeg'
+					'images/thumb1.webp',
+					'images/thumb2.webp',
+					'images/thumb3.webp'
 				]
 			},
 			project2: {
 				videoSrc: `https://vimeo.com/1009290848?share=copy`, 
 				thumbnails: [
-					'images/thumb2-1.jpg',
-					'images/thumb2-2.jpg',
-					'images/blank.png'
+					'images/thumb2-1.webp',
+					'images/thumb2-2.webp',
+					'images/blank.webp'
 				]
 			},
 			project3: {
@@ -106,16 +104,16 @@ import { initZoomableImages } from 'zoomable-image'
 				imageSrc: `images/thumb5.webp`, // Utilise une image au lieu d'une vidéo
 				thumbnails: [
 					'images/thumb5-1.webp',
-					'images/blank.png',
+					'images/blank.webp',
 					'images/thumb5-2.webp'
 				]
 			},
 			project6: {
 				imageSrc: `images/thumb6.jpg`, // Utilise une image au lieu d'une vidéo
 				thumbnails: [
-					'images/thumb6-1.jpg',
-					'images/thumb6-2.jpg',
-					'images/thumb6-3.jpg'
+					'images/thumb6-1.webp',
+					'images/thumb6-2.webp',
+					'images/thumb6-3.webp'
 					
 				]
 			},
@@ -130,9 +128,9 @@ import { initZoomableImages } from 'zoomable-image'
 			project8: {
 				imageSrc: `images/thumb8.jpg`, // Utilise une image au lieu d'une vidéo
 				thumbnails: [
-					'images/thumb8-1.jpg',
-					'images/thumb8-2.jpg',
-					'images/thumb8-3.jpg'
+					'images/thumb8-1.webp',
+					'images/thumb8-2.webp',
+					'images/thumb8-3.webp'
 				]
 			}
 		};
@@ -168,26 +166,15 @@ import { initZoomableImages } from 'zoomable-image'
 			});
 		});
 
-		// Fermer le modal et l'overlay en appuyant sur "Escape"
-		document.addEventListener('keydown', function(event) {
-			if (event.key === 'Escape') {
-				thumbnails.forEach(img => {
-					img.classList.remove('active');
-				});
-				document.body.style.overflow = ''; // Réactive le scroll
-				if (overlay) {
-					overlay.style.display = 'none'; // Masquer l'overlay
-				}
-			}
-		});
+		// Fonction pour vérifier s'il y a une image active (ou autre élément actif)
+		function hasActiveThumbnail(): boolean {
+			return document.querySelector('.thumbnail.active') !== null;
+		}
 
-		// Ajouter un écouteur d'événement pour la touche "Escape" pour fermer le modal
-		document.addEventListener('keydown', function(event) {
-			if (event.key === 'Escape') {
-				thumbnails.forEach(img => {
-					img.classList.remove('active'); // Réinitialiser toutes les images si on appuie sur Esc
-				});
-				document.body.style.overflow = ''; // Réactive le scroll quand on quitte le mode modal
+		// Ajouter un écouteur d'événement pour la touche "Escape" uniquement pour revenir à l'état de base
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !hasActiveThumbnail()) {
+				resetLayout(); // Appelle la fonction qui réinitialise la mise en page
 			}
 		});
 
@@ -206,12 +193,12 @@ import { initZoomableImages } from 'zoomable-image'
 		
 		const projectDescriptions: Record<ProjectId, string> = {
 			project1: "<i>Trust the Repair</i> is a narrative mobile game where you troubleshoot a popular tech product for a company. Initially, your tasks are simple: fix the devices and send them back. However, you soon encounter modified objects and recurring issues, making you question the company's promise of durability.<br><br> The situation worsens when the company is bought by investors who enforce strict policies on non-compliant devices and demand forced updates and data tracers. Simultaneously, activists reach out, urging you to resist the new management. You must navigate the balance between maintaining your job and helping the activists. Will you remain a part of the company\'s machinery or will you fight for the right to repair and technological sovereignty?",
-			project2: "Like blooming flowers following the sunlight over and over du- ring their ephemeral existence, in the “jardin des aiguilles” watch heads will delicately swaying to follow the perpetual drawings of the magnetic arm above. This installation captivate the precision of an Axidraw machine and nature’s spontaneous choreography, showing how time can be an individual perception, even when dictated by bigger entities.",
-			project3: "Psychopomp’s Pledge is a short VR experience where the player takes on the role of the Psychopomp. As such, their sacred duty is to guide departed souls to the afterlife and to amass oboles from their otherworldly passengers. Today, their charge is a child, waiting in anticipation of their transcendental passage across the spectral river. This journey, from one shore to the other, demands careful handling as they glide their spectral boat across the glimmering currents of the ghostly river, driven by the sweep of their oar. This experience was developed with Unity as part of my Master’s studies in Media Design at HEAD – Geneva and was built around the following constraints: creating a dreamlike experience, utilizing hand tracking offered by Quest 2 headsets, using photogrammetry for asset creation, and producing sounds using the mouth. This project was carried out in collaboration with <a href=\"loukannajjar.ch\"> Louka Najjar.</a>",
-			project4: "Satanic Scissors is a rhythm game that pits players against a mischievous feline fiend in a game of rock-paper-scissors. Players must rely on their quick reflexes and mastery of rock-paper-scissors to score points in rhythm and defeat the demon. <br><br>This project was developed using P5.js, Teachable Machine, and a camera to recognize hand movements as part of a workshop in the Master of Media Design program at HEAD – Geneva. My work focused on game design and technical aspects, in collaboration with Louka Najjar. The graphic assets were created by Eupholie.",
-			project5: "Scuttle! is an arcade game where the player controls a spider running for its life. They must navigate through a house full of dangers and go as far as possible. To survive, they need to hide in the shadows of objects lying around—but not for too long. The game features a leaderboard where players can compete with others. <br><br>The game was created for the ScoreSpace Jam #25 with the theme Stealth and won 1st place. I worked on the programming in collaboration with Luka Najjar in Unity, and Eupholie created the art.",
+			project2: "Like blooming flowers following the sunlight over and over during their ephemeral existence, in the “jardin des aiguilles” watch heads will delicately swaying to follow the perpetual drawings of the magnetic arm above. This installation captivate the precision of an Axidraw machine and nature’s spontaneous choreography, showing how time can be an individual perception, even when dictated by bigger entities.<br><br> This project was realized as part of a workshop led by <a style=\"color: #0D1F9B\" href=\"https://www.arnaudpfeffer.com/\" target=\"_blank\">Arnaud Pfeffer</a> and will be showcased at the HEAD exhibition for the <a style=\"color: #0D1F9B\" href=\"https://www.gphg.org/\" target=\"_blank\">Grand Prix d'Horlogerie de Genève</a> 2024.",
+			project3: "Psychopomp’s Pledge is a short VR experience where the player takes on the role of the Psychopomp. As such, their sacred duty is to guide departed souls to the afterlife and to amass oboles from their otherworldly passengers. Today, their charge is a child, waiting in anticipation of their transcendental passage across the spectral river. This journey, from one shore to the other, demands careful handling as they glide their spectral boat across the glimmering currents of the ghostly river, driven by the sweep of their oar. <br><br>This experience was developed with Unity as part of my Master’s studies in Media Design at HEAD – Geneva and was built around the following constraints: creating a dreamlike experience, utilizing hand tracking offered by Quest 2 headsets, using photogrammetry for asset creation, and producing sounds using the mouth. This project was carried out in collaboration with <a style=\"color: #0D1F9B\" href=\"https://loukanajjar.ch\" target=\"_blank\">Louka Najjar</a>.",
+			project4: "Satanic Scissors is a rhythm game that pits players against a mischievous feline fiend in a game of rock-paper-scissors. Players must rely on their quick reflexes and mastery of rock-paper-scissors to score points in rhythm and defeat the demon. <br><br>This project was developed using P5.js, Teachable Machine, and a camera to recognize hand movements as part of a workshop in the Master of Media Design program at HEAD – Geneva. My work focused on game design and technical aspects, in collaboration with <a style=\"color: #0D1F9B\" href=\"https://loukanajjar.ch\" target=\"_blank\">Louka Najjar</a>. The graphic assets were created by <a style=\"color: #0D1F9B\" href=\"https://www.instagram.com/eupholie_/\" target=\"_blank\">Eupholie</a>.",
+			project5: "Scuttle! is an arcade game where the player controls a spider running for its life. They must navigate through a house full of dangers and go as far as possible. To survive, they need to hide in the shadows of objects lying around—but not for too long. The game features a leaderboard where players can compete with others. <br><br>The game was created for the ScoreSpace Jam #25 with the theme Stealth and won 1st place. I worked on the programming in collaboration with <a style=\"color: #0D1F9B\" href=\"https://loukanajjar.ch\" target=\"_blank\">Louka Najjar</a> in Unity, and <a style=\"color: #0D1F9B\" href=\"https://www.instagram.com/eupholie_/\" target=\"_blank\">Eupholie</a> created the art.",
 			project6: "Whether intriguing, disturbing or even painful, we encounter sound pollution in our daily routines. To deal with it, there is the <i>Inner Beat</i>, a wrist-wearable object containing a small creature that represents your hearing sensitivity and helps you to see the power of these noises. <br><br>If the level of sound pollution is too high, the blob starts to deteriorate and so does the protection. You can reconstitute it by resynchronizing its rhythm or spontaneously cooperating with others. When walking outside, be careful not to lose your Inner Beat in front of sound aggression to avoid your blob suffering.",
-			project7: "Tothem is a game based on a physical totem and its representation in the virtual world. The totem attracts disciples, and as their civilization grows and thrives, these citizens have demands. To meet their needs, the player must interact with the physical totem. <br><br>Inside the physical totem, an Arduino and several sensors are hidden, allowing the detection of various inputs, such as shocks or ambient temperature. The totem is connected to the game via Bluetooth. The game was developed using Processing as part of a workshop in the Master of Media Design program at HEAD – Geneva.<br><br>My role in the team primarily involved designing the interaction and working on the programming. Other team members included Elie Höfer, Luka Najjar, and Eupholie.",
+			project7: "Tothem is a game based on a physical totem and its representation in the virtual world. The totem attracts disciples, and as their civilization grows and thrives, these citizens have demands. To meet their needs, the player must interact with the physical totem. <br><br>Inside the physical totem, an Arduino and several sensors are hidden, allowing the detection of various inputs, such as shocks or ambient temperature. The totem is connected to the game via Bluetooth. The game was developed using Processing as part of a workshop in the Master of Media Design program at HEAD – Geneva.<br><br>My role in the team primarily involved designing the interaction and working on the programming. Other team members included <a style=\"color: #0D1F9B\" href=\"https://www.instagram.com/slthyz/\" target=\"_blank\">Elie Höfer</a>, <a style=\"color: #0D1F9B\" href=\"https://loukanajjar.ch\" target=\"_blank\">Louka Najjar</a> Najjar, and <a style=\"color: #0D1F9B\" href=\"https://www.instagram.com/eupholie_/\" target=\"_blank\">Eupholie</a>.",
 			project8: "Kori is an innovative tangible interface in the form of a small robot designed for children aged 7 to 10. Through a collaborative approach, it allows children to create interactive stories using a question-and-answer format. Powered by artificial intelligence (GPT-3), Kori offers a wide variety of storylines while guiding the children in shaping the narrative.<br><br>Developed using a Raspberry Pi and modeled and 3D-printed, Kori allows children to actively participate in the creation of stories, while providing support to structure their creativity. At the end of each session, the stories can be listened to in class and shared with parents, enhancing both classroom engagement and family involvement.<br><br>This project involved the implementation of all stages of a structured process, including: user research and analysis, collaborative ideation, the progressive selection and refinement of the concept, the development of interactive prototypes, user testing, and even the creation and testing of a website to communicate the launch of such a product."
 		};
 
@@ -272,6 +259,8 @@ import { initZoomableImages } from 'zoomable-image'
 					}
 
 				} else if ('imageSrc' in project) {
+					// Afficher le container du media (vidéo ou image)
+					projectMediaContainer.classList.remove('hidden');
 					// Sinon, affiche l'image
 					const projectImage = document.getElementById('project-image') as HTMLImageElement;
 					const projectVideo = document.getElementById('project-video') as HTMLIFrameElement;
