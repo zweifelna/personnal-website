@@ -83,4 +83,404 @@ const { title } = Astro.props;
 		font-style: normal;
 	}
 
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	h1,h2 {
+		font-family: 'NyghtSerif', sans-serif;
+		font-size: 2.5em; /* Optionnel : ajuster la taille de la police */
+    	color: #0D1F9B; /* Optionnel : ajuster la couleur du texte */
+	}
+
+	.section h2 {
+		font-size: 2em;
+		padding-top: 4vh;
+		padding-bottom: 2vh;
+	}
+
+	p, a {
+		font-family: 'GeistMono', sans-serif;
+		font-size: 1em; /* Optionnel : ajuster la taille de la police */
+    	color: #0D1F9B; !important
+	}
+
+	body {
+		background-color: #FDF4ED; /* Fond crème */
+		margin: 0;
+		padding: 0;
+		color: #0D1F9B;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 5%;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 2px solid #0D1F9B; /* Bordure bleue */
+		position: relative; /* Pour permettre le centrage absolu */
+		height: 150px; /* Ajuste la hauteur du header selon tes besoins */
+		
+	}
+
+	.header-left {
+		flex-basis: 15%; /* Ajuste la largeur de la section gauche */
+		
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-right: 2px solid #0D1F9B; /* Ligne de séparation entre gauche et droite */
+		height: 150px;
+	}
+
+	.header-left .logo {
+		max-width: 100%; /* Ajuste selon la taille de ton logo */
+	}
+
+	.header-right {
+		flex-basis: 85%; /* Ajuste la largeur de la section droite */
+		text-align: center;
+		color: #ffffff;
+		position: absolute; /* Positionnement absolu pour centrer */
+		left: 50%; /* Positionne horizontalement au centre */
+		top: 50%; /* Positionne verticalement au centre */
+		transform: translate(-50%, -50%); /* Centre exactement */
+	}
+
+	.header-right h1 {
+		margin: 0;
+		//font-size: 2.5em;
+	}
+
+	.content {
+		display: flex;
+		justify-content: space-between;
+		transition: all 0.5s ease;
+	}
+
+	.content.adjust-width {
+		width: auto; /* Reviens à la largeur automatique après réinitialisation */
+	}
+
+	.left-column {
+		display: flex;
+		flex-direction: column;
+		flex-basis: 66%; /* Largeur de la colonne de gauche (Resume et Contact) */
+		transition: flex-basis 0.5s ease; /* Transition for resizing */
+	}
+
+	.right-column {
+		flex-basis: 33%; /* Initial width of the right column */
+		transition: flex-basis 0.5s ease;
+	}
+
+	.expand-right {
+		flex-basis: 85%; /* Increase the size of the left column */
+	}
+
+	.section {
+		padding: 4.125%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border: 2px solid #0D1F9B; /* Bordure bleue */
+		border-top: none;
+	}
+
+	.section.hidden {
+		opacity: 0;
+		transition: opacity 0.5s ease-in-out; /* Fade out the sections */
+	}
+
+	.section.resume{
+		padding: 8.25%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-bottom: 2px solid #0D1F9B;
+		border-left: 2px solid #0D1F9B;
+		border-right: none; /* Supprime la bordure droite */
+		flex-basis: 66%; /* Pour garder les sections côte à côte avec un espace */
+	}
+
+	.section.resume a{
+		text-decoration: none;
+		color: red;
+	}
+
+	.section.contact {
+		padding: 8.25%;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-top: none; /* Supprime la bordure en haut */
+		border-left: 2px solid #0D1F9B; /* Ajoute une bordure gauche pour correspondre à Resume */
+		flex-basis: 66%; /* Pour garder les sections côte à côte avec un espace */
+		border-right: none; /* Supprime la bordure droite */
+		font-family: 'GeistMono', sans-serif;
+		transition: flex-basis 0.5s ease;
+	}
+
+	.hidden {
+		transition: flex-basis 0 ease-in-out !important;
+		overflow: hidden; /* Ensures content does not overflow during transition */
+		display: none;
+	}
+	
+	.section.contact a{
+		padding-bottom: 1.5em;
+	}
+
+	.section.projects {
+		transition: flex-basis 0.5s ease-in-out; /* Transition for resizing */
+	}
+
+	.resume p {
+		font-size: 1em;
+		line-height: 1.5;
+		padding-bottom: 1.5em;
+	}
+
+	.projects ul {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.projects li {
+		margin-bottom: 10px;
+	}
+
+
+	.projects a:hover {
+		text-decoration: underline;
+	}
+
+	.contact {
+    flex-basis: 100%; /* Prend toute la largeur disponible sous "Resume" */
+	}
+
+	.contact ul {
+		list-style-type: none;
+		padding: 0;
+		margin-bottom: 4vh;
+		line-height: 1.5;
+	}
+
+	.contact a {
+		color: #0D1F9B;
+	}
+
+
+
+	.contact a:hover {
+		text-decoration: underline;
+	}
+
+	.logo img {
+    transition: transform 0.4s ease-in-out; /* Ajoute une transition douce */
+	}
+
+	.logo img:hover {
+		transform: rotate(180deg); /* Fait pivoter l'image de 360 degrés */
+	}
+
+	#project-link {
+		display: inline-block;
+    	transition: transform 0.3s ease, color 0.3s ease;
+	}
+
+	#project-link.clicked {
+		transform: scale(1.2);
+	}
+
+	.left-column, .right-column {
+		transition: flex-basis 0.5s ease;
+	}
+	
+	#project-media {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	#project-media.show {
+		display: block; /* Afficher le conteneur de media lorsque prêt */
+	}
+
+	#project-media iframe {
+		width: 100%; /* La vidéo prend toute la largeur de son conteneur */
+		height: auto; /* La hauteur s'ajuste automatiquement */
+		max-width: 100%; /* S'assure que la vidéo ne dépasse pas les bords du conteneur */
+		aspect-ratio: 16/9; /* Maintient un ratio d'aspect pour la vidéo */
+	}
+
+	#project-thumbnails {
+		display: flex;
+		justify-content: space-between; /* Espace entre les images */
+		gap: 15px; /* Espacement entre les miniatures */
+	}
+
+	#overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba(0, 0, 0, 0.5); /* Fond noir semi-transparent */
+		z-index: 50; /* Z-index inférieur à l'image en modal, mais supérieur aux thumbnails */
+		display: none; /* Masquer par défaut */
+	}
+
+	.thumbnail.active ~ #overlay {
+		display: block; /* Afficher l'overlay lorsqu'une image est agrandie */
+	}
+
+	.thumbnail {
+		width: 200px;
+		height: 150px;
+		object-fit: cover;
+		cursor: pointer;
+		z-index: 0; /* Les miniatures ont un z-index par défaut */
+		position: relative;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+
+	.thumbnail.active {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%) scale(1);
+		max-width: 90vw;
+		max-height: 90vh;
+		width: auto;
+		height: auto;
+		z-index: 100; /* L'image agrandie est au-dessus de tout, y compris les thumbnails */
+		cursor: zoom-out;
+	}
+
+
+	#project-list {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	#project-list.hidden {
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	#project-list.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	@media screen and (max-width: 768px) {
+		* {
+			box-sizing: border-box;
+		}
+
+		/* Header : logo et nom en haut */
+		.header {
+			display: flex; /* Utilise Flexbox pour mettre les éléments en ligne */
+			justify-content: space-between; /* Espace entre le logo et le nom */
+			align-items: center; /* Centrer verticalement les éléments */
+			padding: 20px;
+		}
+
+		.header-left {
+			flex-basis: 15%; /* La section contenant le logo prend 15% de la largeur */
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-right: 20px;
+		}
+
+		.header-right {
+			flex-basis: 85%; /* La section contenant le nom prend 85% de la largeur */
+			
+		}
+
+		.header {
+			position: static; /* Annule le positionnement relatif */
+			padding-right: 0;
+		}
+
+		.header-right {
+			position: static; /* Annule le positionnement absolu */
+			transform: none; /* Annule le transform */
+			left: auto; /* Annule la propriété left */
+			top: auto; /* Annule la propriété top */
+		}
+
+		.logo img{
+			width: 40px;
+		}
+
+		/* Sections en vertical */
+		.content {
+			flex-direction: column;
+			width: 100%; /* Les sections prennent toute la largeur */
+		}
+
+		.section {
+			width: 100%; /* Chaque section occupe toute la largeur du téléphone */
+			padding: 10px; /* Réduire le padding pour économiser de l'espace */
+		}
+
+		/* Placer la section Projects en premier sur mobile */
+		.section.projects {
+			order: -1; /* Donne la priorité à la section Projects */
+		}
+
+		/* Remettre les autres sections après Projects */
+		.section.resume, .section.contact {
+			order: 1; /* Laisser les autres sections après Projects */
+		}
+
+		/* Ajuster les polices et dimensions pour mobile */
+		h1 {
+			font-size: 2em;
+		}
+
+		.section h2 {
+			font-size: 1.7em;
+		}
+
+		p, a {
+			font-size: 1em;
+		}
+
+		/* Images adaptatives */
+		#project-media iframe {
+			width: 100%; /* La vidéo prend toute la largeur de l'écran sur mobile */
+			height: auto; /* La hauteur s'ajuste automatiquement */
+		}
+
+		#project-thumbnails {
+			flex-direction: column; /* Les miniatures s'empilent en colonne sur mobile */
+		}
+
+		.thumbnail {
+			width: 100%; /* Chaque miniature prend toute la largeur du conteneur */
+			height: auto;
+			padding-bottom: 0px;
+		}
+
+		.section.resume {
+			border-right: 2px solid #0D1F9B; /* Bordure bleue à droite pour Resume */
+		}
+
+
+		.section.contact {
+			border-right: 2px solid #0D1F9B; /* Bordure bleue à droite pour Contact */
+		}
+
+		.section.projects {
+			padding-right: 8.25%;
+			padding-left: 8.25%;
+		}
+	}
+
 </style>
