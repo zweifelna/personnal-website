@@ -6,4 +6,4 @@ You're currently visiting what will soon be the online home of my portfolio, whe
 
 Thanks for stopping by, and see you soon!
 
-🎨 **Nathan Zweifel**
+**Nathan Zweifel**
